@@ -120,7 +120,7 @@ bot.on("channel_post", async (msg) => {
   }
 });
 
-schedule.scheduleJob("0 10 * * *", () => {
+schedule.scheduleJob("13 20 * * *", () => {
   const chatIds = fs
     .readFileSync(chatIdsFile, "utf-8")
     .split("\n")
