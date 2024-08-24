@@ -119,12 +119,12 @@ bot.onText(/\/(.+)/, (msg, match) => {
   const command = match[1].split(" ")[0];
   console.log(command);
 
-  commands.forEach((emr) => {
-    if (!emr.startsWith(`/${command}`)) {
-      const unknownCommandMessage = `⚠️ Səni başa düşmürəm. Kömək al:\n\n /help`;
-      bot.sendMessage(chatId, unknownCommandMessage);
-    }
-  });
+  const isCommandValid = commands.some((cmd) => command.startsWith(cmd));
+
+  if (!isCommandValid) {
+    const unknownCommandMessage = `⚠️ Səni başa düşmürəm. Kömək al:\n\n /help`;
+    bot.sendMessage(chatId, unknownCommandMessage);
+  }
 });
 
 bot.on("channel_post", async (msg) => {
