@@ -121,7 +121,7 @@ bot.onText(/\/(.+)/, (msg, match) => {
 
   const isCommandValid = commands.some((cmd) => command.startsWith(cmd));
 
-  if (!isCommandValid) {
+  if (isCommandValid) {
     const unknownCommandMessage = `⚠️ Səni başa düşmürəm. Kömək al:\n\n /help`;
     bot.sendMessage(chatId, unknownCommandMessage);
   }
