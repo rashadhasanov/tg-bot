@@ -154,3 +154,26 @@ Xoş dinləmələr! 🎶`;
       });
   });
 });
+
+schedule.scheduleJob("0 20 * * *", () => {
+  const chatIds = fs
+    .readFileSync(chatIdsFile, "utf-8")
+    .split("\n")
+    .filter(Boolean);
+
+  chatIds.forEach((chatId) => {
+    bot
+      .getChatMember(chatId, chatId)
+      .then((member) => {
+        const firstName = member.user.first_name || "Anonim";
+        const message = `🌟 Salam, ${firstName}! 🌟\n
+Axşamınız xeyirli olsun! Günün yorğunluğunu atmaq üçün Eclipsedən təsadüfi bir mahnı dinləyə bilərsiniz. 🎵
+Botu istifadə edərək, /music əmri ilə bu gözəl mahnıdan zövq ala bilərsiniz. 🎧
+Xoş dinləmələr! 🎶`;
+        bot.sendMessage(chatId, message);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+});
