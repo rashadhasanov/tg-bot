@@ -119,7 +119,7 @@ bot.onText(/\/(.+)/, (msg, match) => {
   const command = match[1].split(" ")[0];
 
   commands.forEach((command) => {
-    if (command.startsWith(`/${command}`)) {
+    if (!command.startsWith(`/${command}`)) {
       const unknownCommandMessage = `⚠️ Səni başa düşmürəm. Kömək al:\n\n /help`;
       bot.sendMessage(chatId, unknownCommandMessage);
     }
