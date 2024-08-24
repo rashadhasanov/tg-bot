@@ -118,7 +118,7 @@ bot.on("channel_post", async (msg) => {
   }
 });
 
-schedule.scheduleJob("25 20 * * *", () => {
+schedule.scheduleJob("0 22 * * *", () => {
   const chatIds = fs
     .readFileSync(chatIdsFile, "utf-8")
     .split("\n")
@@ -126,12 +126,12 @@ schedule.scheduleJob("25 20 * * *", () => {
 
   chatIds.forEach((chatId) => {
     bot
-      .getChatMember(chatId, chatId)
+      .getChatMember(chatId)
       .then((member) => {
         const firstName = member.user.first_name || "Anonim";
         const message = `🌟 Salam, ${firstName}! 🌟\n
 Gecənin qaranlığında bir az musiqiylə rahatlanmaq istəyirsiniz? 🎵
-Eclipsedən bir təsadüfi mahnı seçin və rahatlayın. 🎧
+@lleclipsell'dən bir təsadüfi mahnı seçin və rahatlayın. 🎧
 Xoş dinləmələr! 🎶`;
         bot.sendMessage(chatId, message);
       })
