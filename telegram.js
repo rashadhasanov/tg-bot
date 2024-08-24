@@ -143,7 +143,7 @@ Xoş dinləmələr! 🎶`;
   });
 });
 
-schedule.scheduleJob("0 20 * * *", () => {
+schedule.scheduleJob("10 20 * * *", () => {
   const chatIds = fs
     .readFileSync(chatIdsFile, "utf-8")
     .split("\n")
