@@ -8,13 +8,11 @@ const token = process.env.TELEGRAM_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
 const feedbackChannelId = process.env.FEEDBACK_CHANNEL_ID;
-const chatIdsFile = path.join(__dirname, "chat_ids.txt"); // Dosya yolu
+const chatIdsFile = path.join(__dirname, "chat_ids.txt");
 
 if (!fs.existsSync(chatIdsFile)) {
   fs.writeFileSync(chatIdsFile, "");
 }
-
-const commands = ["/start", "/help", "/music", "/count", "/feedback"];
 
 bot.onText(/\/(start|help|music|count|feedback)(?:@\w+)?/, (msg, match) => {
   const chatId = msg.chat.id;
@@ -120,7 +118,7 @@ bot.on("channel_post", async (msg) => {
   }
 });
 
-schedule.scheduleJob("13 20 * * *", () => {
+schedule.scheduleJob("21 20 * * *", () => {
   const chatIds = fs
     .readFileSync(chatIdsFile, "utf-8")
     .split("\n")
@@ -132,31 +130,8 @@ schedule.scheduleJob("13 20 * * *", () => {
       .then((member) => {
         const firstName = member.user.first_name || "Anonim";
         const message = `🌟 Salam, ${firstName}! 🌟\n
-Gününüz xeyirli olsun! Bugünə gözəl bir başlanğıc üçün Eclipsedən təsadüfi bir mahnı dinləyə bilərsiniz. 🎵
-Botu istifadə edərək, /music əmri ilə bu gözəl mahnıdan zövq ala bilərsiniz. 🎧
-Xoş dinləmələr! 🎶`;
-        bot.sendMessage(chatId, message);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  });
-});
-
-schedule.scheduleJob("10 20 * * *", () => {
-  const chatIds = fs
-    .readFileSync(chatIdsFile, "utf-8")
-    .split("\n")
-    .filter(Boolean);
-
-  chatIds.forEach((chatId) => {
-    bot
-      .getChatMember(chatId, chatId)
-      .then((member) => {
-        const firstName = member.user.first_name || "Anonim";
-        const message = `🌟 Salam, ${firstName}! 🌟\n
-Axşamınız xeyirli olsun! Günün yorğunluğunu atmaq üçün Eclipsedən təsadüfi bir mahnı dinləyə bilərsiniz. 🎵
-Botu istifadə edərək, /music əmri ilə bu gözəl mahnıdan zövq ala bilərsiniz. 🎧
+Gecənin qaranlığında bir az musiqiylə rahatlanmaq istəyirsiniz? 🎵
+Eclipsedən bir təsadüfi mahnı seçin və rahatlayın. 🎧
 Xoş dinləmələr! 🎶`;
         bot.sendMessage(chatId, message);
       })
