@@ -114,19 +114,6 @@ bot.onText(/\/feedback (.+)/, (msg, match) => {
     });
 });
 
-bot.onText(/\/(.+)/, (msg, match) => {
-  const chatId = msg.chat.id;
-  const command = match[1].split(" ")[0];
-  console.log(command);
-
-  const isCommandValid = commands.some((cmd) => command.startsWith(cmd));
-
-  if (isCommandValid) {
-    const unknownCommandMessage = `⚠️ Səni başa düşmürəm. Kömək al:\n\n /help`;
-    bot.sendMessage(chatId, unknownCommandMessage);
-  }
-});
-
 bot.on("channel_post", async (msg) => {
   if (msg.audio && msg.chat.id == "-1001776273152") {
     fs.appendFileSync("song_ids.txt", `${msg.audio.file_id}\n`);
