@@ -8,7 +8,7 @@ const token = process.env.TELEGRAM_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
 const feedbackChannelId = process.env.FEEDBACK_CHANNEL_ID;
-const chatIdsFile = path.join(_dirname, "chat_ids.txt");
+const chatIdsFile = path.join(__dirname, "chat_ids.txt");
 
 if (!fs.existsSync(chatIdsFile)) {
   fs.writeFileSync(chatIdsFile, "");
@@ -118,7 +118,7 @@ bot.on("channel_post", async (msg) => {
   }
 });
 
-schedule.scheduleJob("22 20 * * *", () => {
+schedule.scheduleJob("25 20 * * *", () => {
   const chatIds = fs
     .readFileSync(chatIdsFile, "utf-8")
     .split("\n")
